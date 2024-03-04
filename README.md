@@ -8,10 +8,13 @@ A proposta do projeto é ter uma documentação que indique lições para os tut
 ## Compilando o Kidlang
 
 Para executar o processo de compilação deve-se ter:
-  -VS Code
-  -Dotnet a partir da versão 6
-  -Extensão C#(opcional porém facilita a execução)
-
+<br>
+<ul>
+  <li>VS Code</li> 
+  <li>Dotnet a partir da versão 6</li>
+  <li>Extensão C#(opcional porém facilita a execução)</li>
+</ul>
+<br>
 Com tudo instalado, você deve baixar os arquivos da linguagem e executar
 
 ## Explorando a sintaxe
@@ -20,11 +23,14 @@ Com tudo instalado, você deve baixar os arquivos da linguagem e executar
 
 ### Tipos que a linguagem aceita
 
--Numero: tipo que representa numeros inteiros, geralmente referenciado com int;
--Texto: tipo que representa textos, geralmente referenciado com string;
--Decimal: tipo que representa numeros decimais, geralmente referenciado com double;
--Bit: tipo que representa numeros booleanos (verdadeiro ou falso), geralmente referenciado como boolean;
--Potinho: tipo que guarda outros tipos, um vetor, geralmente referenciado como array;
+<ul>
+  <li>Numero: tipo que representa numeros inteiros, geralmente referenciado com int;</li>
+  <li>Texto: tipo que representa textos, geralmente referenciado com string;</li>
+  <li>Decimal: tipo que representa numeros decimais, geralmente referenciado com double;</li>
+  <li>Bit: tipo que representa numeros booleanos (verdadeiro ou falso), geralmente referenciado como boolean;</li>
+  <li>Potinho: tipo que guarda outros tipos, um vetor, geralmente referenciado como array;</li>  
+</ul>
+
 
 ```
 
