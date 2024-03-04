@@ -68,7 +68,7 @@ namespace Interpreter.Lang
                     {
                         HasErrors = true;
                         while(HasErrors == true){
-                             ErrorMessages.Add($"O input: '{input}' não é um texto válido");
+                             ErrorMessages.Add($"O input: '{input}' não é uma palavra válida");
                              Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
                              Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
                              Console.WriteLine("Digite um "+varType+ " válido");
@@ -83,27 +83,7 @@ namespace Interpreter.Lang
                     }
                     
                 }
-                else if(varType == "decimal")
-                {
-                    if(double.TryParse(input, out double doubleValue))
-                    {
-                        HasErrors = true;
-                        while(HasErrors == true){
-                             ErrorMessages.Add($"O input: '{input}' não é um decimal válido");
-                             Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
-                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
-                             Console.WriteLine("Digite um "+varType+ " válido");
-                            input = Console.ReadLine();
-                            if(!double.TryParse(input, out doubleValue)){
-                                HasErrors = false;
-                            }
-                            Variables[varName] = new Simbolo(context.tipo().GetText(), varName, input);
-                        }
-                    }else{
-                        Variables[varName] = new Simbolo(context.tipo().GetText(), varName, input);
-                    }
-                    
-                }
+                
             }
             
             
@@ -114,7 +94,7 @@ namespace Interpreter.Lang
 
         public override object? VisitOutputWriteVar([NotNull] LangParser.OutputWriteVarContext context)
         {
-            //Console.WriteLine("VisitOutputWriteVar");
+            
             var varName = context.VAR().GetText();
             if (Variables.ContainsKey(varName))
                 Console.WriteLine(Variables[varName].Value);
@@ -133,7 +113,6 @@ namespace Interpreter.Lang
 
         public override object? VisitOutputWriteExpr([NotNull] LangParser.OutputWriteExprContext context)
         {
-            //Console.WriteLine("VisitOutputWriteExpr");
             object? v = Visit(context.expr());
             if (v != null)
                 Console.WriteLine(v);
@@ -145,13 +124,14 @@ namespace Interpreter.Lang
         {
             //Console.WriteLine("VisitAtribVar");
             var varName = context.VAR().GetText();
+            var type = context.VAR().GetType();
             var value = Visit(context.expr());
             if (value != null)
             {
                 if (Variables.ContainsKey(varName))
                     Variables[varName].Value = value;
                 else
-                    Variables[varName] = new Simbolo("numero", varName, value);
+                    Variables[varName] = new Simbolo(type.Name, varName, value);
             }
             return null;
         }
@@ -159,7 +139,7 @@ namespace Interpreter.Lang
  
         public override object? VisitExprTerm([NotNull] LangParser.ExprTermContext context)
         {
-            //Console.WriteLine("VisitExprTerm");
+            
             return Visit(context.term());
         }
 
@@ -190,111 +170,10 @@ namespace Interpreter.Lang
 
         public override object? VisitFactorExpr([NotNull] LangParser.FactorExprContext context)
         {
-            //Console.WriteLine("VisitFactorExpr");
+            
             return Visit(context.expr());
         }
         
-
-        #region Control Statements
-        public override object? VisitIfstIf([NotNull] LangParser.IfstIfContext context)
-        {
-            //Console.WriteLine("VisitIfstIf");
-            var cond = Visit(context.cond());
-            if (cond != null && (bool)cond)
-                Visit(context.block());
-            return null;
-        }
-
-        public override object? VisitIfstIfElse([NotNull] LangParser.IfstIfElseContext context)
-        {
-            //Console.WriteLine("VisitIfstIfElse");
-            var cond = Visit(context.cond());
-            if (cond != null && (bool)cond)
-                Visit(context.b1);
-            else
-                Visit(context.b2);
-            return null;
-        }
-
-        public override object? VisitWhilestWhile([NotNull] LangParser.WhilestWhileContext context)
-        {
-            //Console.WriteLine("VisitWhilestWhile");
-            var cond = Visit(context.cond());
-            while (cond != null && (bool)cond)
-            {
-                Visit(context.block());
-                cond = Visit(context.cond());
-            }
-            return null;
-        }
-
-        public override object? VisitForstFor([NotNull] LangParser.ForstForContext context)
-        {
-            foreach (var atrib in context.atrib())
-            {
-                Visit(atrib);
-            }
-
-            var cond = Visit(context.cond());
-            //quando acabar o for, o cond é null
-            while (cond != null && (bool)cond)
-            {
-                Visit(context.block());
-                Visit(context.atrib(1));
-                cond = Visit(context.cond());
-            }
-            return null;
-        }
-
-        public override object? VisitCondExpr([NotNull] LangParser.CondExprContext context)
-        {
-            //Console.WriteLine("VisitCondExpr");
-            object? v = Visit(context.expr());
-            return v != null && (Double)v != 0;
-        }
-
-       
-
-        public override object? VisitCondAnd([NotNull] LangParser.CondAndContext context)
-        {
-            //Console.WriteLine("VisitCondAnd");
-            object? v1 = Visit(context.c1);
-            object? v2 = Visit(context.c2);
-            return v1 != null && v2 != null && (bool)v1 && (bool)v2;
-        }
-
-        public override object? VisitCondOr([NotNull] LangParser.CondOrContext context)
-        {
-            //Console.WriteLine("VisitCondOr");
-            object? v1 = Visit(context.c1);
-            object? v2 = Visit(context.c2);
-            return v1 != null && (bool)v1 || v2 != null && (bool)v2;
-        }
-
-        public override object? VisitCondNot([NotNull] LangParser.CondNotContext context)
-        {
-            object? v = Visit(context.cond());
-            return v != null && !(bool)v;
-        }
-        #endregion
-
-        #region Functions
-
-        public override object? VisitFuncInvocLine([NotNull] LangParser.FuncInvocLineContext context)
-        {
-            //Console.WriteLine("VisitFuncInvocLine");
-            var funcName = context.VAR().GetText();
-            var function = _functions[funcName];
-
-            if (function != null)
-            {
-                return Visit(function);
-            }
-
-            return null;
-        }
-
-        #endregion
 
     }
 }

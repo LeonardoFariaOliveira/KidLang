@@ -7,52 +7,44 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //LEXER
-        //### input        
-        var inputStream = new AntlrFileStream("../../../input.lang");
-        //var inputStream = new AntlrFileStream(args[0]);
-        //### lexer
+           
+        var inputStream = new AntlrFileStream("../../../codigo.kid");
+      
         var lexer = new LangLexer(inputStream);
 
-        //PARSER
-        //### tokens
         var tokenStream = new BufferedTokenStream(lexer);
-        //### parser
+    
         var parser = new LangParser(tokenStream);
 
-        //### error listener
         var errorListener = new LangErrorListener();
         parser.RemoveErrorListeners();
         parser.AddErrorListener(errorListener);
-        //### error handling
-        //parser.ErrorHandler = new BailErrorStrategy();
+       
         parser.ErrorHandler = new DefaultErrorStrategy();
 
-
-        //### semantic listener
         var semanticListener = new SemanticLangListener();
         parser.RemoveParseListeners();
         parser.AddParseListener(semanticListener);
 
-        
-
-        //### parse
         IParseTree? tree = null;
         try
         {
             tree = parser.prog();
-            // se der certo printa
-            Console.WriteLine("Compilado com sucesso!!");
+            
+            Console.WriteLine("Chegou até aqui, continue assim!!!");
+
             if (errorListener.HasErrors){
-                Console.WriteLine("Errors!");
+                Console.WriteLine("Eita que tem erro");
                 errorListener.ErrorMessages.ForEach(e => Console.WriteLine(e));
                 tree = null;
             }
+
             if (semanticListener.HasErrors){
-                Console.WriteLine("Semantic Errors!");
+                Console.WriteLine("");
                 semanticListener.ErrorMessages.ForEach(e => Console.WriteLine(e));
                 tree = null;
             }
+
             
         }
         catch (Exception e)
@@ -60,10 +52,7 @@ internal class Program
             Console.WriteLine(e);
         }
 
-       // Console.WriteLine("##### FUNCTIONS");
-       // semanticListener.Functions.Keys.ToList().ForEach(f => Console.WriteLine(f));
-
-        //### execute
+    
         if (tree != null)
         {
             var interpreter = new LangInterpreter(semanticListener.Functions);

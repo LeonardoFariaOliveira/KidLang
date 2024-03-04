@@ -25,9 +25,9 @@ Com tudo instalado, você deve baixar os arquivos da linguagem e executar
 
 <ul>
   <li>Numero: tipo que representa numeros inteiros, geralmente referenciado com int;</li>
-  <li>Texto: tipo que representa textos, geralmente referenciado com string;</li>
-  <li>Decimal: tipo que representa numeros decimais, geralmente referenciado com double;</li>
-  <li>Bit: tipo que representa numeros booleanos (verdadeiro ou falso), geralmente referenciado como boolean;</li>
+  <li>Palavra: tipo que representa textos, geralmente referenciado com string;</li>
+  <li>NumeroVirgula: tipo que representa numeros decimais, geralmente referenciado com double;</li>
+  <li>VerdadeiroFalso: tipo que representa numeros booleanos (verdadeiro ou falso), geralmente referenciado como boolean;</li>
   <li>Potinho: tipo que guarda outros tipos, um vetor, geralmente referenciado como array;</li>  
 </ul>
 
@@ -53,7 +53,7 @@ function function_name(arguments){
 ### Entrada e saída
 ```
 write "message";
-read variable;
+<tipo> read variable;
 
 ```
 
@@ -88,13 +88,13 @@ numero licao1 = 1;
 ### Lição 2 -  Ler e exibir valores
 ```
 write "Quantas letras tem um alfabeto?";
-read num1;
+numero read num1;
 write num1;
 write "Quantas letras possui a palavra 'KidLang'";
-read num2;
+numero read num2;
 write num2;
 write "Qual a nota que você daria para a KidLang:";
-read num3;
+numero read num3;
 write num3;
 ```
 
@@ -113,9 +113,8 @@ else{
 ```
 function somar(num1, num2){
     write num1 + num2;
-}
+};
 
-somar(1, 1);
 ```
 
 ### Lição 5 -  Faça repetições com FOR

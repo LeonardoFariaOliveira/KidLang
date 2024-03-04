@@ -57,8 +57,8 @@ output:
 tipo: 
       'numero'                # tipoNumero
     | 'texto'               # tipoTexto
-    | 'decimal'             #tipoDecimal
-    | 'bit'                 #tipoBit
+    | 'numerovirgula'             #tipoDecimal
+    | 'verdadeirofalso'                 #tipoBit
     | 'potinho'             #tipoPotinho
     ;
 
