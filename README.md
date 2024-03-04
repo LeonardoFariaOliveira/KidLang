@@ -1,6 +1,7 @@
 # Kidlang para crianças
 
 Kidlang é uma linguagem de programação feita especialmente para o fácil aprendizado de linguagens de programação por crianças de 8 a 10 anos. O intuito é ter elementos em português fáceis o bastante para o entendimento e compreensão mas diferente do VisualG, é possível realizar atividades mais avançadas e executar algoritmos.
+A proposta do projeto é ter uma documentação que indique lições para os tutores passarem para as crianças e conforme persiste a evolução do aprendizado, novos conceitos são apresentados. No momento começamos da lição 1 que fala como declarar uma variável e vamos até a 6 que fala de laços de repetição com while.
 
 <center><img style="align-self:center" src='https://github.com/LeonardoFariaOliveira/TrabalhoFinalCompiladores/assets/89713903/2728fc9d-c99e-404c-8483-0a4bb728392e' /></center>
 
@@ -73,12 +74,12 @@ if(condition){
 ## Exemplo para testar em casa
 
 
-# Lição 1 -  Declarar variável
+### Lição 1 -  Declarar variável
 ```
 numero licao1 = 1;
 ```
 
-# Lição 2 -  Ler e exibir valores
+### Lição 2 -  Ler e exibir valores
 ```
 write "Quantas letras tem um alfabeto?";
 read num1;
@@ -91,7 +92,7 @@ read num3;
 write num3;
 ```
 
-# Lição 3 -  Testar as condições
+### Lição 3 -  Testar as condições
 ```
 numero testavel = 1;
 if(testavel = 1){
@@ -102,7 +103,7 @@ else{
 }
 ```
 
-# Lição 4 -  Faça tarefas(funções)
+### Lição 4 -  Faça tarefas(funções)
 ```
 function somar(num1, num2){
     write num1 + num2;
@@ -111,7 +112,7 @@ function somar(num1, num2){
 somar(1, 1);
 ```
 
-# Lição 5 -  Faça repetições com FOR
+### Lição 5 -  Faça repetições com FOR
 ```
 for(numero i; i < 10; numero i = i + 1){
     write i;
@@ -119,7 +120,7 @@ for(numero i; i < 10; numero i = i + 1){
 ```
 
 
-# Lição 6 -  Faça repetições com WHILE
+### Lição 6 -  Faça repetições com WHILE
 ```
 while(i < 10){
     write i;
@@ -128,4 +129,7 @@ while(i < 10){
 ```
 
 
-# E muito mais!!!
+## E muito mais!!!
+
+##OBS
+Nossa proposta inicial era trabalhar com uma linguagem mais moderna e verbosa, com uma sintaxe que fosse de fácil entendimento, alta produtividade e ainda manter-se semanticamente viável, porém tivemos dificuldades durante o projeto e tivemos que adaptar a gramatica inicial para conseguirmos sair do zero
