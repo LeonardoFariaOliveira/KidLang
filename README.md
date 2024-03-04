@@ -70,3 +70,62 @@ if(condition){
 //code block
 }
 ```
+## Exemplo para testar em casa
+
+
+# Lição 1 -  Declarar variável
+```
+numero licao1 = 1;
+```
+
+# Lição 2 -  Ler e exibir valores
+```
+write "Quantas letras tem um alfabeto?";
+read num1;
+write num1;
+write "Quantas letras possui a palavra 'KidLang'";
+read num2;
+write num2;
+write "Qual a nota que você daria para a KidLang:";
+read num3;
+write num3;
+```
+
+# Lição 3 -  Testar as condições
+```
+numero testavel = 1;
+if(testavel = 1){
+  write "Kidlang eh 10!!!";
+}
+else{
+  write "Kidlang eh mil milhões";
+}
+```
+
+# Lição 4 -  Faça tarefas(funções)
+```
+function somar(num1, num2){
+    write num1 + num2;
+}
+
+somar(1, 1);
+```
+
+# Lição 5 -  Faça repetições com FOR
+```
+for(numero i; i < 10; numero i = i + 1){
+    write i;
+};
+```
+
+
+# Lição 6 -  Faça repetições com WHILE
+```
+while(i < 10){
+    write i;
+    i = i + 1;
+};
+```
+
+
+# E muito mais!!!
