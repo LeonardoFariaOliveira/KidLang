@@ -62,3 +62,11 @@ while(condition){
 //code block
 }
 ```
+### Condições: IF-ELSE
+```
+if(condition){
+//code block
+} else {
+//code block
+}
+```
