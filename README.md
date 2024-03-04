@@ -2,8 +2,7 @@
 
 Kidlang é uma linguagem de programação feita especialmente para o fácil aprendizado de linguagens de programação por crianças de 8 a 10 anos. O intuito é ter elementos em português fáceis o bastante para o entendimento e compreensão mas diferente do VisualG, é possível realizar atividades mais avançadas e executar algoritmos.
 
-![Kidlang](https://github.com/LeonardoFariaOliveira/TrabalhoFinalCompiladores/assets/89713903/2728fc9d-c99e-404c-8483-0a4bb728392e)
-
+<center><img src='[https://user-images.githubusercontent.com/66142358/220161738-f5707338-b902-4665-b3b6-9ca5107d079c.png](https://github.com/LeonardoFariaOliveira/TrabalhoFinalCompiladores/assets/89713903/2728fc9d-c99e-404c-8483-0a4bb728392e)' alt ='usecase'/></center>
 
 ## Compilando o Kidlang
 
