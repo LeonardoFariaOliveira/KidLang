@@ -8,7 +8,6 @@ functions: function functions
         ;
  
 function: FUNCTION VAR '('params')' fnBlock;
-
  
 fnBlock:
      '{' fnBody '}'                # fnBlockLine

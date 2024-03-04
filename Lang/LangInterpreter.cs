@@ -47,10 +47,10 @@ namespace Interpreter.Lang
                     {   
                         HasErrors = true;
                         while(HasErrors == true){
-                             ErrorMessages.Add($"O input '{input}' não é um número válido");
+                             ErrorMessages.Add($"O input: '{input}' não é um número válido");
                              Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
-                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs do tipo " + "'" + varType + "'");
-                             Console.WriteLine("Por favor, digite um "+varType+ " válido");
+                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
+                             Console.WriteLine("Digite um "+varType+ " válido");
                             input = Console.ReadLine();
                             if(double.TryParse(input, out doubleValue)){
                                 HasErrors = false;
@@ -68,10 +68,10 @@ namespace Interpreter.Lang
                     {
                         HasErrors = true;
                         while(HasErrors == true){
-                             ErrorMessages.Add($"O input '{input}' não é um texto válido");
+                             ErrorMessages.Add($"O input: '{input}' não é um texto válido");
                              Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
-                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs do tipo " + "'" + varType + "'");
-                             Console.WriteLine("Por favor, digite um "+varType+ " válido");
+                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
+                             Console.WriteLine("Digite um "+varType+ " válido");
                             input = Console.ReadLine();
                             if(!double.TryParse(input, out doubleValue)){
                                 HasErrors = false;
@@ -98,7 +98,7 @@ namespace Interpreter.Lang
             if (Variables.ContainsKey(varName))
                 Console.WriteLine(Variables[varName].Value);
             else
-                Console.WriteLine("Variable " + varName + " is not defined");
+                Console.WriteLine("Variavel " + varName + " nao definida");
             return null;
         }
 
@@ -243,17 +243,6 @@ namespace Interpreter.Lang
             }
             return null;
         }
-        public override object? VisitWhilestDoWhile([NotNull] LangParser.WhilestDoWhileContext context)
-        {
-            //Console.WriteLine("VisitWhilestDoWhile");
-            var cond = Visit(context.cond());
-            do
-            {
-                Visit(context.block());
-                cond = Visit(context.cond());
-            } while (cond != null && (bool)cond);
-            return null;
-        }
 
         public override object? VisitForstFor([NotNull] LangParser.ForstForContext context)
         {
@@ -272,43 +261,6 @@ namespace Interpreter.Lang
             }
             return null;
         }
-
-        // public override object? VisitForstFor(LangParser.ForstForContext context)
-        // {
-        //     // Extrair as informações do contexto
-        //     var atrib1 = context.atrib(0);
-        //     var cond = context.cond();
-        //     var atrib2 = context.atrib(1);
-        //     var block = context.block();
-
-        //     // Visitar as expressões correspondentes
-        //     var start = Visit(atrib1);
-        //     var end = Visit(cond);
-        //     var step = Visit(atrib2);
-
-        //     if (start != null && end != null && step != null)
-        //     {
-
-        //         double startValue = (double)start;
-        //         double endValue = (double)end;
-        //         double stepValue = (double)step;
-
-        //         for (var i = startValue; i < endValue; i += stepValue)
-        //         {
-        //             // Executar o bloco do for
-        //              Visit(context.block());
-        //         }
-        //     }else if (start == null || end == null || step == null){
-        //         Console.WriteLine("Erro no for");
-        //     }
-
-        //     // Passar para o próximo bloco de código
-        //     return null;
-        // }
-
-
-
-
 
         public override object? VisitCondExpr([NotNull] LangParser.CondExprContext context)
         {
