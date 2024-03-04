@@ -43,7 +43,7 @@ namespace Interpreter.Lang
                 string varType = context.tipo().GetText();
                 if (varType == "numero")
                 {
-                    if (!double.TryParse(input, out double doubleValue))
+                    if (!int.TryParse(input, out int intValue))
                     {   
                         HasErrors = true;
                         while(HasErrors == true){
@@ -52,14 +52,14 @@ namespace Interpreter.Lang
                              Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
                              Console.WriteLine("Digite um "+varType+ " válido");
                             input = Console.ReadLine();
-                            if(double.TryParse(input, out doubleValue)){
+                            if(int.TryParse(input, out intValue)){
                                 HasErrors = false;
                             }
-                            double.TryParse(input, out doubleValue);
-                            Variables[varName] = new Simbolo(context.tipo().GetText(), varName, doubleValue);
+                            int.TryParse(input, out intValue);
+                            Variables[varName] = new Simbolo(context.tipo().GetText(), varName, intValue);
                         }
                     }else{
-                        Variables[varName] = new Simbolo(context.tipo().GetText(), varName, doubleValue);
+                        Variables[varName] = new Simbolo(context.tipo().GetText(), varName, intValue);
                     }
 
                 }else if(varType == "texto")
@@ -69,6 +69,27 @@ namespace Interpreter.Lang
                         HasErrors = true;
                         while(HasErrors == true){
                              ErrorMessages.Add($"O input: '{input}' não é um texto válido");
+                             Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
+                             Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
+                             Console.WriteLine("Digite um "+varType+ " válido");
+                            input = Console.ReadLine();
+                            if(!double.TryParse(input, out doubleValue)){
+                                HasErrors = false;
+                            }
+                            Variables[varName] = new Simbolo(context.tipo().GetText(), varName, input);
+                        }
+                    }else{
+                        Variables[varName] = new Simbolo(context.tipo().GetText(), varName, input);
+                    }
+                    
+                }
+                else if(varType == "decimal")
+                {
+                    if(double.TryParse(input, out double doubleValue))
+                    {
+                        HasErrors = true;
+                        while(HasErrors == true){
+                             ErrorMessages.Add($"O input: '{input}' não é um decimal válido");
                              Console.WriteLine(ErrorMessages[ErrorMessages.Count - 1]);
                              Console.WriteLine("Variável " + "'" + varName + "'" + " só aceita inputs desse tipo:  " + "'" + varType + "'");
                              Console.WriteLine("Digite um "+varType+ " válido");
@@ -120,17 +141,6 @@ namespace Interpreter.Lang
         }
         #endregion
 
-        #region Variable and Expression Statements
-        protected (Double, Double) GetDoubles(IParseTree tree1, IParseTree tree2)
-        {
-            //Console.WriteLine("GetDoubles");
-            var t1 = Visit(tree1);
-            var t2 = Visit(tree2);
-            Double.TryParse(t1?.ToString(), out var d1);
-            Double.TryParse(t2?.ToString(), out var d2);
-            return (d1, d2);
-        }
-
         public override object? VisitAtribVar([NotNull] LangParser.AtribVarContext context)
         {
             //Console.WriteLine("VisitAtribVar");
@@ -146,39 +156,13 @@ namespace Interpreter.Lang
             return null;
         }
 
-        public override object VisitExprPlus([NotNull] LangParser.ExprPlusContext context)
-        {
-            //Console.WriteLine("VisitExprPlus");
-            var d = GetDoubles(context.term(), context.expr());
-            return d.Item1 + d.Item2;
-        }
-
-        public override object VisitExprMinus([NotNull] LangParser.ExprMinusContext context)
-        {
-            //Console.WriteLine("VisitExprMinus");
-            var d = GetDoubles(context.term(), context.expr());
-            return d.Item1 - d.Item2;
-        }
-
+ 
         public override object? VisitExprTerm([NotNull] LangParser.ExprTermContext context)
         {
             //Console.WriteLine("VisitExprTerm");
             return Visit(context.term());
         }
 
-        public override object? VisitTermMult([NotNull] LangParser.TermMultContext context)
-        {
-            //Console.WriteLine("VisitTermMult");
-            var d = GetDoubles(context.factor(), context.term());
-            return d.Item1 * d.Item2;
-        }
-
-        public override object? VisitTermDiv([NotNull] LangParser.TermDivContext context)
-        {
-            //Console.WriteLine("VisitTermDiv");
-            var d = GetDoubles(context.factor(), context.term());
-            return d.Item1 / d.Item2;
-        }
 
         public override object? VisitTermFactor([NotNull] LangParser.TermFactorContext context)
         {
@@ -209,7 +193,7 @@ namespace Interpreter.Lang
             //Console.WriteLine("VisitFactorExpr");
             return Visit(context.expr());
         }
-        #endregion
+        
 
         #region Control Statements
         public override object? VisitIfstIf([NotNull] LangParser.IfstIfContext context)
@@ -269,27 +253,7 @@ namespace Interpreter.Lang
             return v != null && (Double)v != 0;
         }
 
-        public override object? VisitCondRelop([NotNull] LangParser.CondRelopContext context)
-        {
-            //Console.WriteLine("VisitCondRelop");
-            var d = GetDoubles(context.e1, context.e2);
-            switch (context.RELOP.Type)
-            {
-                case LangLexer.EQ:
-                    return d.Item1 == d.Item2;
-                case LangLexer.NE:
-                    return d.Item1 != d.Item2;
-                case LangLexer.LT:
-                    return d.Item1 < d.Item2;
-                case LangLexer.LE:
-                    return d.Item1 <= d.Item2;
-                case LangLexer.GT:
-                    return d.Item1 > d.Item2;
-                case LangLexer.GE:
-                    return d.Item1 >= d.Item2;
-            }
-            return null;
-        }
+       
 
         public override object? VisitCondAnd([NotNull] LangParser.CondAndContext context)
         {
